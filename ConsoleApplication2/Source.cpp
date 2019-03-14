@@ -82,20 +82,37 @@ int main()
 		{
 			ifstream i3_file("3.txt");
 			ofstream i4_file("4.txt");
+			//чтобы зациклить алфавит придется не через таблицу ASCII кодов, а через свой массив символов
+			char alphabet[34] = "абвгдеёжзийклмнопрстуфхцчшщъыьэюя";
 			char sym;
 			int key;
 			cout << "Enter the key" << endl;
 			cin >> key;
 
-			//зациклить алфавит как!!!!!!!!!!!!!
 			while (i3_file.get(sym))
 			{
-				if (sym == ' ' || sym == '\n')
-					i4_file << sym;
-				else
+				for (int i = 0; i <= 33; i++)
 				{
-					sym = sym + key;
-					i4_file << sym;
+					if (sym == alphabet[i])
+					{
+						if (i + key <= 32)
+						{
+							sym = alphabet[i + key];
+							i4_file << sym;
+							break;
+						}
+						else
+						{
+							sym = alphabet[i + key - 33];
+							i4_file << sym;
+							break;
+						}
+					}
+					else if(i==33)
+					{
+						i4_file << sym;
+						break;
+					}
 				}
 			}
 		}
