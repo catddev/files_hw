@@ -115,6 +115,7 @@ int main()
 					}
 				}
 			}
+			// почему-то на github в файлах не видно русского текста, только через visual studio
 		}
 		break;
 		default:
