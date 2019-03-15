@@ -82,41 +82,48 @@ int main()
 		{
 			ifstream i3_file("3.txt");
 			ofstream i4_file("4.txt");
-			//чтобы зациклить алфавит придется не через таблицу ASCII кодов, а через свой массив символов
-			char alphabet[34] = "абвгдеёжзийклмнопрстуфхцчшщъыьэюя";
 			char sym;
 			int key;
 			cout << "Enter the key" << endl;
 			cin >> key;
+			int period;
+			char start;
 
 			while (i3_file.get(sym))
 			{
-				for (int i = 0; i <= 33; i++)
-				{
-					if (sym == alphabet[i])
+					if (sym >= 'А' && sym <= 'Я')
 					{
-						if (i + key <= 32)
-						{
-							sym = alphabet[i + key];
-							i4_file << sym;
-							break;
-						}
-						else
-						{
-							sym = alphabet[i + key - 33];
-							i4_file << sym;
-							break;
-						}
+						period = 'Я' - 'А';
+						start = 'А';
 					}
-					else if(i==33)
+					else if(sym >= 'а' && sym <= 'я')
+					{
+						period = 'я' - 'а';
+						start = 'а';
+					}
+					else if (sym >= 'A' && sym <= 'Z')
+					{
+						period = 'Z' - 'A';
+						start = 'A';
+					}
+					else if (sym >= 'a' && sym <= 'z')
+					{
+						period = 'z' - 'a';
+						start = 'a';
+					}
+					else
 					{
 						i4_file << sym;
-						break;
+						continue;
 					}
-				}
-			}
 
-			// почему-то на github в файлах не видно русского текста, только через visual studio
+					if (sym + key - start <= period)
+						sym = sym + key;
+					else
+						sym = sym + key - period - 1;
+
+					i4_file << sym;
+			}
 		}
 		break;
 		default:
